@@ -1,0 +1,201 @@
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  justify-items: center;
+  min-height: 90vh;
+  padding: 40px;
+  padding-bottom: 0px;
+  gap: 32px;
+  background: var(--background);
+  font-family: var(--font-averia-serif-libre);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border-radius: 16px;
+  min-height: 90vh;
+  max-height: 90vh;
+  min-width: 90vw;
+  background: var(--main-container);
+}
+
+.navBar {
+  width: 100%;
+  height: 80px;
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  z-index: 10;
+  padding-bottom: 26vh;
+}
+
+.navLogo,
+.navStart {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.navDock {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLogo {
+  padding-left: 80px;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+.navStart {
+  justify-content: flex-end;
+  padding-right: 80px;
+}
+
+.navStartButton {
+  border: none;
+  font-family: var(--font-averia-serif-libre);
+  width: 128px;
+  height: 60px;
+  font-size: 16px;
+  border-radius: 24px;
+  color: var(--text);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  color: var(--text-alternative);
+  background-color: var(--primary);
+}
+
+.navStartButton:hover,
+.navStartButton:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(var(--text-rgb), 0.2);
+}
+
+.content {
+
+}
+
+.content p {
+  font-family: var(--font-averia-serif-libre);
+  color: var(--text);
+  font-weight: lighter;
+  text-align: center;
+  padding-left: 0;
+  padding-bottom: 12.5vh;
+  margin: 0;
+  font-size: 32px;
+  line-height: 24px;
+  opacity: 0.4;
+  letter-spacing: -0.01em;
+  list-style-position: inside;
+}
+
+
+.content h1 {
+  font-family: var(--font-averia-serif-libre);
+  color: var(--text);
+  font-weight: lighter;
+  text-align: center;
+  padding-left: 0;
+  margin: 0;
+  padding-bottom: 10vh;
+  font-size: 12rem;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  list-style-position: inside;
+}
+
+.textContainer {
+  padding-top: 5vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.actionButtonContainer {
+  padding-top: 5vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 16px;
+}
+
+/* Shared styles for all buttons */
+.button {
+  border: none;
+  font-family: var(--font-averia-serif-libre);
+  width: 360px;
+  height: 100px;
+  font-size: 32px;
+  border-radius: 24px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(var(--text-rgb), 0.2);
+}
+
+/* Modifier for the Start button */
+.startButton {
+  color: var(--text-alternative);
+  background-color: var(--primary);
+}
+
+/* Modifier for the About button */
+.aboutButton {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  display: inline-block;
+  line-height: 1;
+}
+
+
+.inBetweenOfTwo {
+  grid-row-start: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 80px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 128px;
+  z-index: 1;
+}
+
+.secondary { grid-row-start: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  min-height: 90vh;
+  max-height: 90vh;
+  padding: 80px;
+  background-color: var(--background);
+  color: var(--text);
+}
