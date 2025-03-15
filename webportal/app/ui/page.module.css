@@ -28,11 +28,11 @@
   width: 100%;
   height: 80px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   display: flex;
   flex-direction: row;
   z-index: 10;
-  padding-bottom: 18vh;
+  padding-bottom: 26vh;
 }
 
 .navLogo,

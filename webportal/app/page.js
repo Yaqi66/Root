@@ -14,10 +14,10 @@ export default function Home() {
         <nav className={styles.navBar}>
           <div className={styles.navLogo}>
             {/*  for Alt */}
-            <Image src={logoAlt} alt="Logo" width={100} height={80} />
+            {/* <Image src={logoAlt} alt="Logo" width={100} height={80} /> */}
 
             {/* for light or dark */}
-            {/* <Image src={logoL} alt="Logo" width={200} height={80} /> */}
+            <Image src={logoL} alt="Logo" width={200} height={80} />
           </div>
           <div className={styles.navDock}>
             Dock
