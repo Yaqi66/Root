@@ -50,8 +50,8 @@ try:
             pressure = sensor.data.pressure
             air_humidity = sensor.data.humidity
             soil_moisture = line.get_value()
-            ph = none
-            air_quality = none
+            ph = None
+            air_quality = None
 
             output = '{0:.2f} C,{1:.2f} hPa,{2:.2f} %RH'.format(
                 sensor.data.temperature,
@@ -70,21 +70,25 @@ try:
                 AirQuality
             )
             VALUES (?, ?, ?, ?, ?, ?, ?);
-        """
+            """
 
-        cursor.execute(
-            insert_query,
-            (timestamp, soil_moisture, air_humidity, temperature, pressure, ph, air_quality)
-        )
-        conn.commit()
+            cursor.execute(
+                insert_query,
+                (timestamp, soil_moisture, air_humidity, temperature, pressure, ph, air_quality)
+            )
+            conn.commit()
 
-        # 6. Close the cursor and connection
-        cursor.close()
-        conn.close()
+            # # 6. Close the cursor and connection
+            # cursor.close()
+            # conn.close()
 
-        print("Data inserted successfully!")
+            print("Data inserted successfully!")
         
         time.sleep(1)
 
 except pyodbc.Error as e:
     print("Error connecting to the database:", e)
+
+# 6. Close the cursor and connection
+cursor.close()
+conn.close()

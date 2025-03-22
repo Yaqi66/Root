@@ -115,4 +115,4 @@ for folder_name in os.listdir(test_base_image_location):
                 # Print out the results
                 print(f"\nImage: {file_path}")
                 for prediction in results.predictions:
-                    print(f"  {prediction.tag_name}: {prediction.probability * 100:.2f}%")
+                    print(f"  {prediction.tag_name}: \n{prediction.probability * 100:.2f}%")
