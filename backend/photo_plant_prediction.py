@@ -36,11 +36,11 @@ while True:
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = os.path.join(outputFolder, f"photo_{timestamp}.jpg")
     subprocess.run(["libcamera-still", "--rotation", "180", "-o", filename])
-    
+
     # Open the image file and read in binary mode
     with open(filename, "rb") as image_file:
         image_bytes = image_file.read()
-    
+
     # Send the image to the Azure endpoint for prediction
     try:
         response_plant_id = requests.post(plant_identification_url, headers=headers_plant_id, data=image_bytes)
@@ -50,7 +50,7 @@ while True:
         response_plant_disease_id = requests.post(plant_disease_id_url, headers=headers_plant_disease_id, data=image_bytes)
         response_plant_disease_id.raise_for_status()  # Raises an HTTPError for bad responses
         prediction_plant_disease_id = response_plant_disease_id.json()
-        
+
         # Extract predictions list from the JSON response
         print("plant name:")
         predictions_list_plant_id = prediction_plant_id.get("predictions", [])
@@ -74,9 +74,9 @@ while True:
             print(f"Most likely prediction for {filename}: {tag_name_plant_disease_id} ({probability_plant_disease_id:.2%} confidence)")
         else:
             print(f"No predictions returned for {filename}.")
-            
+
     except requests.exceptions.RequestException as e:
         print(f"Error during prediction: {e}")
 
-    # Wait for 1 hour before taking the next photo
-    time.sleep(3600)
+    # Wait for 1 min before taking the next photo
+    time.sleep(60)
