@@ -1,0 +1,25 @@
+.textContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.textContainer p {
+    margin-bottom: 10px;
+    padding-bottom: 2vh;
+    text-align: left;
+    line-height: 40px;
+}
+
+.textContainer h1 {
+    text-align: center;
+    color: var(--text);
+}
+
+.actionButtonContainer {
+    margin: 20px 0;
+    padding-bottom: 5vh;
+}

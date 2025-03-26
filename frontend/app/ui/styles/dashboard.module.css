@@ -1,0 +1,83 @@
+.dashboardContainer {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+}
+
+/* Header */
+.header {
+    grid-column: span 3;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Metric Cards */
+.metricCard {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboardContainer {
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Tips & Health Check */
+.tips,
+.healthCheck,
+.imageNotes {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Special Grid Placement */
+.tips {
+    grid-column: span 2;
+    text-align: left;
+}
+
+.bulletPoints {
+    padding-left: 20px;
+}
+
+/* Health Check */
+.healthCheck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* For Good Health */
+.healthCheck.good {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+/* For Bad Health */
+.healthCheck.bad {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+/* Loading state */
+.healthCheck.loading {
+    background-color: #f0f0f0; /* Grey */
+    color: black;
+}

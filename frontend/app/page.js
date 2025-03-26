@@ -1,42 +1,32 @@
-'use client'
-
-import Image from "next/image"
-import logoL from "./ui/pictures/logoLight.png"
-import logoD from "./ui/pictures/logoDark.png"
-import logoAlt from "./ui/pictures/logoAlternative.png"
-import styles from "./ui/page.module.css";
+import Navbar from './ui/components/Navbar';
+import ActionButton from './ui/components/ActionButton';
+import TextContainer from './ui/components/TextContainer';
+import styles from './ui/styles/page.module.css';
 
 export default function Home() {
-
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <nav className={styles.navBar}>
-          <div className={styles.navLogo}>
-            {/*  for Alt */}
-            {/* <Image src={logoAlt} alt="Logo" width={100} height={80} /> */}
-
-            {/* for light or dark */}
-            <Image src={logoL} alt="Logo" width={200} height={80} />
-          </div>
-          <div className={styles.navDock}>
-            Dock
-          </div>
-          <div className={styles.navStart}>
-            <button className={styles.navStartButton}>Start</button>
-          </div>
-        </nav>
-        <div className={styles.content}>
-          <div className={styles.textContainer}>
-            <h1>ROOT</h1>
-            <p>care for your plant</p>
-          </div>
-          <div className={styles.actionButtonContainer}>
-            <button className={`${styles.button} ${styles.startButton}`}>Start</button>
-            <button className={`${styles.button} ${styles.aboutButton}`}>About</button>
-          </div>
+    return (
+        <div className={styles.page}>
+            <main className={styles.main}>
+                <Navbar />
+                <div className={styles.content}>
+                    <TextContainer
+                        title="ROOT"
+                        subtitle="care for your plant"
+                    />
+                    <div className={styles.actionButtonContainer}>
+                        <ActionButton
+                            text="Start"
+                            type="primary"
+                            route="/dashboard"
+                        />
+                        <ActionButton
+                            text="About"
+                            type="secondary"
+                            route="/about"
+                        />
+                    </div>
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 }
