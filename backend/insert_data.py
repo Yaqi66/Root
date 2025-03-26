@@ -35,7 +35,7 @@ temperature = sensor.data.temperature
 pressure = sensor.data.pressure
 humidity = sensor.data.humidity
 
-sensor_line_number = 21 
+sensor_line_number = 21
 chip = gpiod.Chip('gpiochip0')
 line = chip.get_line(sensor_line_number)
 line.request(consumer='soil_sensor', type=gpiod.LINE_REQ_DIR_IN)
@@ -63,7 +63,7 @@ try:
             INSERT INTO SensorData (
                 Timestamp,
                 SoilMoisture,
-                AirHumidity, 
+                AirHumidity,
                 Temperature,
                 Pressure,
                 pH,
@@ -83,8 +83,8 @@ try:
             # conn.close()
 
             print("Data inserted successfully!")
-        
-        time.sleep(1)
+
+        time.sleep(60)
 
 except pyodbc.Error as e:
     print("Error connecting to the database:", e)
