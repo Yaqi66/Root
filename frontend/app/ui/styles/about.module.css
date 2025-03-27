@@ -1,25 +1,25 @@
 .textContainer {
+    min-width: 600px;
     max-width: 1200px;
     margin: 0 auto;
+    padding-left: 20px;
     text-align: left;
-    line-height: 1.6;
-    font-size: 1.2rem;
-    color: var(--text);
 }
 
 .textContainer p {
     margin-bottom: 10px;
     padding-bottom: 2vh;
     text-align: left;
-    line-height: 40px;
+    line-height: 1.6;
+    font-size: clamp(1rem, 2vw, 1.4rem);
 }
 
 .textContainer h1 {
     text-align: center;
     color: var(--text);
+    font-size: clamp(6rem, 8vw, 12rem);
 }
 
 .actionButtonContainer {
-    margin: 20px 0;
-    padding-bottom: 5vh;
+    padding-bottom: clamp(1vh, 2vh, 5vh);
 }
