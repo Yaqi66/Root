@@ -6,7 +6,7 @@ import requests
 from config import config  
 import pyodbc
 import bme680
-# import gpiod
+import gpiod
 from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
@@ -128,94 +128,94 @@ connection_string = (
 )
 
 # Initialize the BME680 sensor
-# try:
-#     sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
-# except (RuntimeError, IOError):
-#     sensor = bme680.BME680(bme680.I2C_ADDR_SECONDARY)
+try:
+    sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
+except (RuntimeError, IOError):
+    sensor = bme680.BME680(bme680.I2C_ADDR_SECONDARY)
 
-# # Sensor configuration
-# sensor.set_humidity_oversample(bme680.OS_2X)
-# sensor.set_pressure_oversample(bme680.OS_4X)
-# sensor.set_temperature_oversample(bme680.OS_8X)
-# sensor.set_filter(bme680.FILTER_SIZE_3)
-# sensor.set_gas_status(bme680.ENABLE_GAS_MEAS)
-# sensor.set_gas_heater_temperature(320)
-# sensor.set_gas_heater_duration(150)
-# sensor.select_gas_heater_profile(0)
+# Sensor configuration
+sensor.set_humidity_oversample(bme680.OS_2X)
+sensor.set_pressure_oversample(bme680.OS_4X)
+sensor.set_temperature_oversample(bme680.OS_8X)
+sensor.set_filter(bme680.FILTER_SIZE_3)
+sensor.set_gas_status(bme680.ENABLE_GAS_MEAS)
+sensor.set_gas_heater_temperature(320)
+sensor.set_gas_heater_duration(150)
+sensor.select_gas_heater_profile(0)
 
-# # Initialize soil moisture sensor via gpiod
-# sensor_line_number = 21
-# chip = gpiod.Chip('gpiochip0')
-# line = chip.get_line(sensor_line_number)
-# line.request(consumer='soil_sensor', type=gpiod.LINE_REQ_DIR_IN)
+# Initialize soil moisture sensor via gpiod
+sensor_line_number = 21
+chip = gpiod.Chip('gpiochip0')
+line = chip.get_line(sensor_line_number)
+line.request(consumer='soil_sensor', type=gpiod.LINE_REQ_DIR_IN)
 
-# app = FastAPI()
+app = FastAPI()
 
-# @app.get("/read-sensor")
-# def read_sensor_data():
-#     """
-#     Reads sensor data, inserts it into the database, and returns the inserted values.
-#     """
-#     # Establish database connection
-#     try:
-#         conn = pyodbc.connect(connection_string)
-#         cursor = conn.cursor()
-#     except pyodbc.Error as e:
-#         raise HTTPException(status_code=500, detail=f"Error connecting to the database: {e}")
+@app.get("/read-sensor")
+def read_sensor_data():
+    """
+    Reads sensor data, inserts it into the database, and returns the inserted values.
+    """
+    # Establish database connection
+    try:
+        conn = pyodbc.connect(connection_string)
+        cursor = conn.cursor()
+    except pyodbc.Error as e:
+        raise HTTPException(status_code=500, detail=f"Error connecting to the database: {e}")
 
-#     try:
-#         # Read sensor data once
-#         if sensor.get_sensor_data():
-#             timestamp = datetime.now()
-#             temperature = sensor.data.temperature
-#             pressure = sensor.data.pressure
-#             air_humidity = sensor.data.humidity
-#             soil_moisture = line.get_value()
-#             ph = None
-#             air_quality = None
+    try:
+        # Read sensor data once
+        if sensor.get_sensor_data():
+            timestamp = datetime.now()
+            temperature = sensor.data.temperature
+            pressure = sensor.data.pressure
+            air_humidity = sensor.data.humidity
+            soil_moisture = line.get_value()
+            ph = None
+            air_quality = None
 
-#             # Log sensor readings (optional)
-#             output = '{0:.2f} C, {1:.2f} hPa, {2:.2f} %RH'.format(
-#                 temperature, pressure, air_humidity)
-#             print(output)
+            # Log sensor readings (optional)
+            output = '{0:.2f} C, {1:.2f} hPa, {2:.2f} %RH'.format(
+                temperature, pressure, air_humidity)
+            print(output)
 
-#             insert_query = """
-#             INSERT INTO SensorData (
-#                 Timestamp,
-#                 SoilMoisture,
-#                 AirHumidity,
-#                 Temperature,
-#                 Pressure,
-#                 pH,
-#                 AirQuality
-#             )
-#             VALUES (?, ?, ?, ?, ?, ?, ?);
-#             """
-#             cursor.execute(
-#                 insert_query,
-#                 (timestamp, soil_moisture, air_humidity, temperature, pressure, ph, air_quality)
-#             )
-#             conn.commit()
+            insert_query = """
+            INSERT INTO SensorData (
+                Timestamp,
+                SoilMoisture,
+                AirHumidity,
+                Temperature,
+                Pressure,
+                pH,
+                AirQuality
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+            """
+            cursor.execute(
+                insert_query,
+                (timestamp, soil_moisture, air_humidity, temperature, pressure, ph, air_quality)
+            )
+            conn.commit()
 
-#             result = {
-#                 "Timestamp": timestamp.isoformat(),
-#                 "SoilMoisture": soil_moisture,
-#                 "AirHumidity": air_humidity,
-#                 "Temperature": temperature,
-#                 "Pressure": pressure,
-#                 "pH": ph,
-#                 "AirQuality": air_quality,
-#                 "message": "Data inserted successfully!"
-#             }
-#         else:
-#             result = {"message": "Sensor data not available"}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Error processing sensor data: {e}")
-#     finally:
-#         cursor.close()
-#         conn.close()
+            result = {
+                "Timestamp": timestamp.isoformat(),
+                "SoilMoisture": soil_moisture,
+                "AirHumidity": air_humidity,
+                "Temperature": temperature,
+                "Pressure": pressure,
+                "pH": ph,
+                "AirQuality": air_quality,
+                "message": "Data inserted successfully!"
+            }
+        else:
+            result = {"message": "Sensor data not available"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing sensor data: {e}")
+    finally:
+        cursor.close()
+        conn.close()
 
-#     return result
+    return result
 
 ###########################################################################################################
 # Azure OpenAI settings
